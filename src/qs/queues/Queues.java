@@ -302,7 +302,7 @@ public class Queues {
 
     public static String increment_id(String department, String department_id) {
         String f_letter = department.substring(0, 1);
-        String id = f_letter + "00000";
+        String id = f_letter + "0";
         String date = DateType.sf.format(new Date());
         try {
             Connection conn = MyConnection.connect();
@@ -319,7 +319,7 @@ public class Queues {
                 }
             }
             if (id == null) {
-                id = "00000";
+                id = f_letter + "0";
             }
             id = ReceiptIncrementor.increment(id);
             return id;

@@ -33,14 +33,14 @@
                 <textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement uuid="357f7751-66a2-4ea0-9180-169f1e1677be" x="0" y="74" width="248" height="27" isPrintWhenDetailOverflows="true"/>
+                <reportElement uuid="357f7751-66a2-4ea0-9180-169f1e1677be" x="0" y="74" width="248" height="35" isPrintWhenDetailOverflows="true"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20" isBold="true"/>
+                    <font size="25" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{queue_no}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement uuid="357f7751-66a2-4ea0-9180-169f1e1677be" x="0" y="101" width="248" height="20" isPrintWhenDetailOverflows="true"/>
+                <reportElement uuid="357f7751-66a2-4ea0-9180-169f1e1677be" x="0" y="108" width="248" height="15" isPrintWhenDetailOverflows="true"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
             </textField>
