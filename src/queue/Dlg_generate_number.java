@@ -787,24 +787,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Queues.to_queues q = new Queues.to_queues(id, queue_no, department, department_id, customer, customer_id, counter_no, teller, teller_id, remarks, status, created_at, updated_at, created_by, updated_by);
                 Queues.add_data(q);
 
-                if (out1 != null) {
-                    out1.println("Hi teller 1");
-                }
-                if (out2 != null) {
-                    out2.println("Hi teller 2");
-                }
-                if (out3 != null) {
-                    out3.println("Hi teller 3");
-                }
-                if (out4 != null) {
-                    out4.println("Hi teller 4");
-                }
-                if (out5 != null) {
-                    out5.println("Hi teller 5");
-                }
-                if (out6 != null) {
-                    out6.println("Hi teller 6");
-                }
+                send_message("hi teller");
 
                 //<editor-fold defaultstate="collapsed" desc=" Print Queue No ">
                 String business_name = System.getProperty("business_name", "");
@@ -848,6 +831,71 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         nd.setLocationRelativeTo(jScrollPane1);
         nd.setVisible(true);
     }
+    PrintWriter sout1 = null;
+    PrintWriter sout2 = null;
+    PrintWriter sout3 = null;
+    PrintWriter sout4 = null;
+    PrintWriter sout5 = null;
+    PrintWriter sout6 = null;
+
+    private void send_message(String message) {
+        try {
+            System.out.println("Sending Message to Server...");
+
+            String counter_no_1_ip = System.getProperty("counter_no_1_ip", "");
+            if (!counter_no_1_ip.isEmpty()) {
+                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", ""));
+                Socket s = new Socket(counter_no_1_ip, counter_no_1_port);
+                sout1 = new PrintWriter(s.getOutputStream(), true);
+                sout1.println(message);
+                System.out.println("Message: " + message);
+            }
+            String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
+            if (!counter_no_2_ip.isEmpty()) {
+                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", ""));
+                Socket s = new Socket(counter_no_2_ip, counter_no_2_port);
+                sout2 = new PrintWriter(s.getOutputStream(), true);
+                sout2.println(message);
+                System.out.println("Message: " + message);
+            }
+            String counter_no_3_ip = System.getProperty("counter_no_3_ip", "");
+            if (!counter_no_3_ip.isEmpty()) {
+                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", ""));
+                Socket s = new Socket(counter_no_3_ip, counter_no_3_port);
+                sout3 = new PrintWriter(s.getOutputStream(), true);
+                sout3.println(message);
+                System.out.println("Message: " + message);
+            }
+            String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
+            if (!counter_no_4_ip.isEmpty()) {
+                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", ""));
+                Socket s = new Socket(counter_no_4_ip, counter_no_4_port);
+                sout4 = new PrintWriter(s.getOutputStream(), true);
+                sout4.println(message);
+                System.out.println("Message: " + message);
+            }
+            String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
+            if (!counter_no_5_ip.isEmpty()) {
+                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", ""));
+                Socket s = new Socket(counter_no_5_ip, counter_no_5_port);
+                sout5 = new PrintWriter(s.getOutputStream(), true);
+                sout5.println(message);
+                System.out.println("Message: " + message);
+            }
+            String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
+            if (!counter_no_6_ip.isEmpty()) {
+                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", ""));
+                Socket s = new Socket(counter_no_6_ip, counter_no_6_port);
+                sout6 = new PrintWriter(s.getOutputStream(), true);
+                sout6.println(message);
+                System.out.println("Message: " + message);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex);
+        }
+    }
+
     JasperPrint jasperPrint = null;
 
     private void generate() {
