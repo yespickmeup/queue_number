@@ -555,13 +555,13 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         init_tbl_degrees(tbl_degrees);
         ret_degrees();
 
-//        connect_to_teller_server();
-        connect_to_teller1();
-        connect_to_teller_2();
-        connect_to_teller_3();
-        connect_to_teller_4();
-        connect_to_teller_5();
-        connect_to_teller_6();
+        connect_to_teller_server();
+//        connect_to_teller1();
+//        connect_to_teller_2();
+//        connect_to_teller_3();
+//        connect_to_teller_4();
+//        connect_to_teller_5();
+//        connect_to_teller_6();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -841,53 +841,62 @@ public class Dlg_generate_number extends javax.swing.JDialog {
     private void send_message(String message) {
         try {
             System.out.println("Sending Message to Server...");
-
+            print_config();
             String counter_no_1_ip = System.getProperty("counter_no_1_ip", "");
             if (!counter_no_1_ip.isEmpty()) {
-                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", ""));
+                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", "3001"));
                 Socket s = new Socket(counter_no_1_ip, counter_no_1_port);
                 sout1 = new PrintWriter(s.getOutputStream(), true);
                 sout1.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_1_ip + " & Port: "+counter_no_1_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
+            System.out.println("counter_no_2_ip: " + counter_no_2_ip);
             if (!counter_no_2_ip.isEmpty()) {
-                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", ""));
+                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", "3002"));
+                System.out.println("counter_no_2_port: " + counter_no_2_port);
                 Socket s = new Socket(counter_no_2_ip, counter_no_2_port);
                 sout2 = new PrintWriter(s.getOutputStream(), true);
                 sout2.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_2_ip + " & Port: "+counter_no_2_port);
                 System.out.println("Message: " + message);
             }
+
             String counter_no_3_ip = System.getProperty("counter_no_3_ip", "");
             if (!counter_no_3_ip.isEmpty()) {
-                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", ""));
+                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", "3003"));
                 Socket s = new Socket(counter_no_3_ip, counter_no_3_port);
                 sout3 = new PrintWriter(s.getOutputStream(), true);
                 sout3.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_3_ip + " & Port: "+counter_no_3_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
             if (!counter_no_4_ip.isEmpty()) {
-                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", ""));
+                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", "3004"));
                 Socket s = new Socket(counter_no_4_ip, counter_no_4_port);
                 sout4 = new PrintWriter(s.getOutputStream(), true);
                 sout4.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_4_ip + " & Port: "+counter_no_4_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
             if (!counter_no_5_ip.isEmpty()) {
-                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", ""));
+                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", "3005"));
                 Socket s = new Socket(counter_no_5_ip, counter_no_5_port);
                 sout5 = new PrintWriter(s.getOutputStream(), true);
                 sout5.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_5_ip + " & Port: "+counter_no_5_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
             if (!counter_no_6_ip.isEmpty()) {
-                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", ""));
+                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", "3006"));
                 Socket s = new Socket(counter_no_6_ip, counter_no_6_port);
                 sout6 = new PrintWriter(s.getOutputStream(), true);
                 sout6.println(message);
+                System.out.println("Sending Message to: Ip: "+counter_no_6_ip + " & Port: "+counter_no_6_port);
                 System.out.println("Message: " + message);
             }
 
@@ -896,6 +905,32 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         }
     }
 
+    private void print_config() {
+        String counter_no_1_ip = System.getProperty("counter_no_1_ip", "");
+        int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", ""));
+
+        String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
+        int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", ""));
+
+        String counter_no_3_ip = System.getProperty("counter_no_3_ip", "");
+        int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", ""));
+
+        String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
+        int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", ""));
+
+        String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
+        int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", ""));
+
+        String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
+        int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", ""));
+        
+        System.out.println("counter_no_1_ip: "+counter_no_1_ip+ " + counter_no_1_port: "+counter_no_1_port);
+        System.out.println("counter_no_2_ip: "+counter_no_2_ip+ " + counter_no_2_port: "+counter_no_2_port);
+        System.out.println("counter_no_3_ip: "+counter_no_3_ip+ " + counter_no_3_port: "+counter_no_3_port);
+        System.out.println("counter_no_4_ip: "+counter_no_4_ip+ " + counter_no_4_port: "+counter_no_4_port);
+        System.out.println("counter_no_5_ip: "+counter_no_5_ip+ " + counter_no_5_port: "+counter_no_5_port);
+        System.out.println("counter_no_6_ip: "+counter_no_6_ip+ " + counter_no_6_port: "+counter_no_6_port);
+    }
     JasperPrint jasperPrint = null;
 
     private void generate() {
