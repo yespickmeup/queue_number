@@ -844,7 +844,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             print_config();
             String counter_no_1_ip = System.getProperty("counter_no_1_ip", "");
             if (!counter_no_1_ip.isEmpty()) {
-                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", "3001"));
+                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", "3000"));
                 Socket s = new Socket(counter_no_1_ip, counter_no_1_port);
                 sout1 = new PrintWriter(s.getOutputStream(), true);
                 sout1.println(message);
@@ -854,7 +854,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
             System.out.println("counter_no_2_ip: " + counter_no_2_ip);
             if (!counter_no_2_ip.isEmpty()) {
-                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", "3002"));
+                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", "3000"));
                 System.out.println("counter_no_2_port: " + counter_no_2_port);
                 Socket s = new Socket(counter_no_2_ip, counter_no_2_port);
                 sout2 = new PrintWriter(s.getOutputStream(), true);
@@ -865,7 +865,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
 
             String counter_no_3_ip = System.getProperty("counter_no_3_ip", "");
             if (!counter_no_3_ip.isEmpty()) {
-                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", "3003"));
+                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", "3000"));
                 Socket s = new Socket(counter_no_3_ip, counter_no_3_port);
                 sout3 = new PrintWriter(s.getOutputStream(), true);
                 sout3.println(message);
@@ -874,7 +874,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             }
             String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
             if (!counter_no_4_ip.isEmpty()) {
-                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", "3004"));
+                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", "3000"));
                 Socket s = new Socket(counter_no_4_ip, counter_no_4_port);
                 sout4 = new PrintWriter(s.getOutputStream(), true);
                 sout4.println(message);
@@ -883,7 +883,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             }
             String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
             if (!counter_no_5_ip.isEmpty()) {
-                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", "3005"));
+                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", "3000"));
                 Socket s = new Socket(counter_no_5_ip, counter_no_5_port);
                 sout5 = new PrintWriter(s.getOutputStream(), true);
                 sout5.println(message);
@@ -892,7 +892,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             }
             String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
             if (!counter_no_6_ip.isEmpty()) {
-                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", "3006"));
+                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", "3000"));
                 Socket s = new Socket(counter_no_6_ip, counter_no_6_port);
                 sout6 = new PrintWriter(s.getOutputStream(), true);
                 sout6.println(message);
