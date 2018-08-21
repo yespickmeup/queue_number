@@ -201,7 +201,7 @@ public class Queues {
         }
     }
 
-    public static void update_teller(int id, String counter_no,String teller,String teller_id) {
+    public static void update_teller(int id, String counter_no, String teller, String teller_id) {
         try {
             String date = DateType.now();
             String user = MyUser1.getUser_id();
@@ -300,8 +300,8 @@ public class Queues {
         }
     }
 
-    public static String increment_id(String department, String department_id,String f_letter) {
-        System.out.println("f_letter: "+f_letter);
+    public static String increment_id(String department, String department_id, String f_letter) {
+        System.out.println("f_letter: " + f_letter);
         String id = f_letter + "0";
         String date = DateType.sf.format(new Date());
         try {
@@ -322,6 +322,10 @@ public class Queues {
                 id = f_letter + "0";
             }
             id = ReceiptIncrementor.increment(id);
+            if (id.contains("101")) {
+                id = f_letter + "0";
+                id = ReceiptIncrementor.increment(id);
+            }
             return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);
