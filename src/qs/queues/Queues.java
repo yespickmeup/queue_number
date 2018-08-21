@@ -300,8 +300,8 @@ public class Queues {
         }
     }
 
-    public static String increment_id(String department, String department_id) {
-        String f_letter = department.substring(0, 1);
+    public static String increment_id(String department, String department_id,String f_letter) {
+        System.out.println("f_letter: "+f_letter);
         String id = f_letter + "0";
         String date = DateType.sf.format(new Date());
         try {

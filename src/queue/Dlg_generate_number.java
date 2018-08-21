@@ -764,12 +764,13 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 closeDialog.ok();
                 int id = 0;
                 String date = DateType.sf.format(new Date());
-                String queue_no = Queues.increment_id(dep.department, "" + dep.id);
+                List<Departments.to_departments> deps = Departments.ret_data(" where id='" + dep.id + "' ");
+                Departments.to_departments dep1 = (Departments.to_departments) deps.get(0);
+                String queue_no = Queues.increment_id(dep.department, "" + dep.id, dep1.shortcut);
                 List<Queues.to_queues> exist = Queues.ret_data(" where queue_no='" + queue_no + "' and department_id='" + dep.id + "' and Date(created_at)='" + date + "' ");
                 do {
-                    queue_no = Queues.increment_id(dep.department, "" + dep.id);
+                    queue_no = Queues.increment_id(dep.department, "" + dep.id, dep.shortcut);
                 } while (!exist.isEmpty());
-
                 String department = dep.department;
                 String department_id = "" + dep.id;
                 String customer = jLabel3.getText();
@@ -783,10 +784,8 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 String updated_at = DateType.now();
                 String created_by = "";
                 String updated_by = "";
-
                 Queues.to_queues q = new Queues.to_queues(id, queue_no, department, department_id, customer, customer_id, counter_no, teller, teller_id, remarks, status, created_at, updated_at, created_by, updated_by);
                 Queues.add_data(q);
-
                 send_message("hi teller");
 
                 //<editor-fold defaultstate="collapsed" desc=" Print Queue No ">
@@ -848,7 +847,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_1_ip, counter_no_1_port);
                 sout1 = new PrintWriter(s.getOutputStream(), true);
                 sout1.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_1_ip + " & Port: "+counter_no_1_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_1_ip + " & Port: " + counter_no_1_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
@@ -859,7 +858,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_2_ip, counter_no_2_port);
                 sout2 = new PrintWriter(s.getOutputStream(), true);
                 sout2.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_2_ip + " & Port: "+counter_no_2_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_2_ip + " & Port: " + counter_no_2_port);
                 System.out.println("Message: " + message);
             }
 
@@ -869,7 +868,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_3_ip, counter_no_3_port);
                 sout3 = new PrintWriter(s.getOutputStream(), true);
                 sout3.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_3_ip + " & Port: "+counter_no_3_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_3_ip + " & Port: " + counter_no_3_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
@@ -878,7 +877,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_4_ip, counter_no_4_port);
                 sout4 = new PrintWriter(s.getOutputStream(), true);
                 sout4.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_4_ip + " & Port: "+counter_no_4_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_4_ip + " & Port: " + counter_no_4_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
@@ -887,7 +886,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_5_ip, counter_no_5_port);
                 sout5 = new PrintWriter(s.getOutputStream(), true);
                 sout5.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_5_ip + " & Port: "+counter_no_5_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_5_ip + " & Port: " + counter_no_5_port);
                 System.out.println("Message: " + message);
             }
             String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
@@ -896,7 +895,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 Socket s = new Socket(counter_no_6_ip, counter_no_6_port);
                 sout6 = new PrintWriter(s.getOutputStream(), true);
                 sout6.println(message);
-                System.out.println("Sending Message to: Ip: "+counter_no_6_ip + " & Port: "+counter_no_6_port);
+                System.out.println("Sending Message to: Ip: " + counter_no_6_ip + " & Port: " + counter_no_6_port);
                 System.out.println("Message: " + message);
             }
 
@@ -923,13 +922,13 @@ public class Dlg_generate_number extends javax.swing.JDialog {
 
         String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
         int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", ""));
-        
-        System.out.println("counter_no_1_ip: "+counter_no_1_ip+ " + counter_no_1_port: "+counter_no_1_port);
-        System.out.println("counter_no_2_ip: "+counter_no_2_ip+ " + counter_no_2_port: "+counter_no_2_port);
-        System.out.println("counter_no_3_ip: "+counter_no_3_ip+ " + counter_no_3_port: "+counter_no_3_port);
-        System.out.println("counter_no_4_ip: "+counter_no_4_ip+ " + counter_no_4_port: "+counter_no_4_port);
-        System.out.println("counter_no_5_ip: "+counter_no_5_ip+ " + counter_no_5_port: "+counter_no_5_port);
-        System.out.println("counter_no_6_ip: "+counter_no_6_ip+ " + counter_no_6_port: "+counter_no_6_port);
+
+        System.out.println("counter_no_1_ip: " + counter_no_1_ip + " + counter_no_1_port: " + counter_no_1_port);
+        System.out.println("counter_no_2_ip: " + counter_no_2_ip + " + counter_no_2_port: " + counter_no_2_port);
+        System.out.println("counter_no_3_ip: " + counter_no_3_ip + " + counter_no_3_port: " + counter_no_3_port);
+        System.out.println("counter_no_4_ip: " + counter_no_4_ip + " + counter_no_4_port: " + counter_no_4_port);
+        System.out.println("counter_no_5_ip: " + counter_no_5_ip + " + counter_no_5_port: " + counter_no_5_port);
+        System.out.println("counter_no_6_ip: " + counter_no_6_ip + " + counter_no_6_port: " + counter_no_6_port);
     }
     JasperPrint jasperPrint = null;
 

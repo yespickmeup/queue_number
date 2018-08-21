@@ -31,8 +31,9 @@ public class Departments {
         public final String created_by;
         public final String updated_by;
         public final int status;
+        public final String shortcut;
 
-        public to_departments(int id, String department, String created_at, String updated_at, String created_by, String updated_by, int status) {
+        public to_departments(int id, String department, String created_at, String updated_at, String created_by, String updated_by, int status, String shortcut) {
             this.id = id;
             this.department = department;
             this.created_at = created_at;
@@ -40,6 +41,7 @@ public class Departments {
             this.created_by = created_by;
             this.updated_by = updated_by;
             this.status = status;
+            this.shortcut = shortcut;
         }
     }
 
@@ -53,6 +55,7 @@ public class Departments {
                     + ",created_by"
                     + ",updated_by"
                     + ",status"
+                    + ",shortcut"
                     + ")values("
                     + ":department"
                     + ",:created_at"
@@ -60,6 +63,7 @@ public class Departments {
                     + ",:created_by"
                     + ",:updated_by"
                     + ",:status"
+                    + ",:shortcut"
                     + ")";
 
             s0 = SqlStringUtil.parse(s0)
@@ -69,6 +73,7 @@ public class Departments {
                     .setString("created_by", to_departments.created_by)
                     .setString("updated_by", to_departments.updated_by)
                     .setNumber("status", to_departments.status)
+                    .setString("shortcut", to_departments.shortcut)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
@@ -92,6 +97,7 @@ public class Departments {
                     + ",created_by= :created_by "
                     + ",updated_by= :updated_by "
                     + ",status= :status "
+                    + ",shortcut= :shortcut"
                     + " where id='" + to_departments.id + "' "
                     + " ";
 
@@ -102,6 +108,7 @@ public class Departments {
                     .setString("created_by", to_departments.created_by)
                     .setString("updated_by", to_departments.updated_by)
                     .setNumber("status", to_departments.status)
+                    .setString("shortcut", to_departments.shortcut)
                     .ok();
 
             PreparedStatement stmt = conn.prepareStatement("");
@@ -167,6 +174,7 @@ public class Departments {
                     + ",created_by"
                     + ",updated_by"
                     + ",status"
+                    + ",shortcut"
                     + " from departments"
                     + " " + where;
 
@@ -180,8 +188,8 @@ public class Departments {
                 String created_by = rs.getString(5);
                 String updated_by = rs.getString(6);
                 int status = rs.getInt(7);
-
-                to_departments to = new to_departments(id, department, created_at, updated_at, created_by, updated_by, status);
+                String shortcut = rs.getString(8);
+                to_departments to = new to_departments(id, department, created_at, updated_at, created_by, updated_by, status, shortcut);
                 datas.add(to);
             }
             return datas;
