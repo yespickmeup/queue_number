@@ -204,7 +204,7 @@ public class Dlg_generate_number_prompt extends javax.swing.JDialog {
         jLabel1.setText("Generate Ticket");
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jButton2.setText("No");
+        jButton2.setText("Cancel");
         jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

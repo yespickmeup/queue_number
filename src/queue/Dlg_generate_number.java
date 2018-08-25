@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,6 +45,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import org.jdesktop.swingx.JXLabel;
+import qs.counters.Counters;
 import qs.customers.Customers;
 import qs.departments.Departments;
 import qs.queues.Queues;
@@ -683,41 +685,41 @@ public class Dlg_generate_number extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        connect_to_teller1();
+//        connect_to_teller1();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        connect_to_teller_2();
+//        connect_to_teller_2();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        connect_to_teller_3();
+//        connect_to_teller_3();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        connect_to_teller_4();
+//        connect_to_teller_4();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        connect_to_teller_5();
+//        connect_to_teller_5();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        connect_to_teller_6();
+//        connect_to_teller_6();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
-        if (out2 != null) {
-            System.out.println("Test: ");
-            out2.println("Hi teller 2");
-        } else {
-            connect_to_teller1();
-        }
+//        if (out2 != null) {
+//            System.out.println("Test: ");
+//            out2.println("Hi teller 2");
+//        } else {
+//           
+//        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        ret_customer();
+//        ret_customer();
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
@@ -764,15 +766,12 @@ public class Dlg_generate_number extends javax.swing.JDialog {
 
         jLabel7.setText(System.getProperty("business_name", "Bayawan Water District"));
         jLabel8.setText(System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental"));
-//        jLabel8.setText(System.getProperty("contact_no", "Website: www.bawad.gov.ph | Telephone Number: (035) 430-0361"));
         init_key();
-
+        counters = Counters.ret_data("");
         ret_departments();
         setTextCenter();
-//        init_tbl_degrees(tbl_degrees);
-//        ret_degrees();
         jPanel4.setVisible(false);
-        connect_to_teller_server();
+//        connect_to_teller1();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -780,6 +779,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             }
         });
     }
+    List<Counters.to_counters> counters = new ArrayList();
 
     private void ret_departments() {
         JXLabel[] lbls = {jXLabel2, jXLabel3, jXLabel4, jXLabel1, jXLabel5, jXLabel6, jXLabel7, jXLabel8, jXLabel9};
@@ -1010,8 +1010,9 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 String updated_by = "";
                 Queues.to_queues q = new Queues.to_queues(id, queue_no, department, department_id, customer, customer_id, counter_no, teller, teller_id, remarks, status, created_at, updated_at, created_by, updated_by);
                 Queues.add_data(q);
+                
                 send_message("hi teller");
-
+                
                 //<editor-fold defaultstate="collapsed" desc=" Print Queue No ">
                 String business_name = System.getProperty("business_name", "");
                 String address = System.getProperty("address", "");
@@ -1049,83 +1050,37 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 jTextField1.setText("");
                 jLabel3.setText("");
                 jTextField1.grabFocus();
+
+                
+
             }
         });
         nd.setLocationRelativeTo(jScrollPane1);
         nd.setVisible(true);
     }
-    PrintWriter sout1 = null;
-    PrintWriter sout2 = null;
-    PrintWriter sout3 = null;
-    PrintWriter sout4 = null;
-    PrintWriter sout5 = null;
-    PrintWriter sout6 = null;
 
     private void send_message(String message) {
-        try {
-            System.out.println("Sending Message to Server...");
-            print_config();
-            String counter_no_1_ip = System.getProperty("counter_no_1_ip", "");
-            if (!counter_no_1_ip.isEmpty()) {
-                int counter_no_1_port = FitIn.toInt(System.getProperty("counter_no_1_port", "3000"));
-                Socket s = new Socket(counter_no_1_ip, counter_no_1_port);
-                sout1 = new PrintWriter(s.getOutputStream(), true);
-                sout1.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_1_ip + " & Port: " + counter_no_1_port);
-                System.out.println("Message: " + message);
-            }
-            String counter_no_2_ip = System.getProperty("counter_no_2_ip", "");
-            System.out.println("counter_no_2_ip: " + counter_no_2_ip);
-            if (!counter_no_2_ip.isEmpty()) {
-                int counter_no_2_port = FitIn.toInt(System.getProperty("counter_no_2_port", "3000"));
-                System.out.println("counter_no_2_port: " + counter_no_2_port);
-                Socket s = new Socket(counter_no_2_ip, counter_no_2_port);
-                sout2 = new PrintWriter(s.getOutputStream(), true);
-                sout2.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_2_ip + " & Port: " + counter_no_2_port);
-                System.out.println("Message: " + message);
+
+        for (Counters.to_counters counter : counters) {
+            if (!counter.ip_address.isEmpty()) {
+                try {
+                    int queue_server_port = FitIn.toInt(System.getProperty("queue_server_port", "2000"));
+                    Socket s = new Socket(counter.ip_address, queue_server_port);
+                    PrintWriter sout1 = new PrintWriter(s.getOutputStream(), true);
+                    sout1.println(message);
+                    System.out.println("Sending Message to: Ip: " + counter.ip_address + " & Port: " + queue_server_port);
+                    System.out.println("Message: " + message);
+                } catch (IOException e) {
+                    System.out.println("Error! " + e);
+                }
             }
 
-            String counter_no_3_ip = System.getProperty("counter_no_3_ip", "");
-            if (!counter_no_3_ip.isEmpty()) {
-                int counter_no_3_port = FitIn.toInt(System.getProperty("counter_no_3_port", "3000"));
-                Socket s = new Socket(counter_no_3_ip, counter_no_3_port);
-                sout3 = new PrintWriter(s.getOutputStream(), true);
-                sout3.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_3_ip + " & Port: " + counter_no_3_port);
-                System.out.println("Message: " + message);
-            }
-            String counter_no_4_ip = System.getProperty("counter_no_4_ip", "");
-            if (!counter_no_4_ip.isEmpty()) {
-                int counter_no_4_port = FitIn.toInt(System.getProperty("counter_no_4_port", "3000"));
-                Socket s = new Socket(counter_no_4_ip, counter_no_4_port);
-                sout4 = new PrintWriter(s.getOutputStream(), true);
-                sout4.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_4_ip + " & Port: " + counter_no_4_port);
-                System.out.println("Message: " + message);
-            }
-            String counter_no_5_ip = System.getProperty("counter_no_5_ip", "");
-            if (!counter_no_5_ip.isEmpty()) {
-                int counter_no_5_port = FitIn.toInt(System.getProperty("counter_no_5_port", "3000"));
-                Socket s = new Socket(counter_no_5_ip, counter_no_5_port);
-                sout5 = new PrintWriter(s.getOutputStream(), true);
-                sout5.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_5_ip + " & Port: " + counter_no_5_port);
-                System.out.println("Message: " + message);
-            }
-            String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
-            if (!counter_no_6_ip.isEmpty()) {
-                int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", "3000"));
-                Socket s = new Socket(counter_no_6_ip, counter_no_6_port);
-                sout6 = new PrintWriter(s.getOutputStream(), true);
-                sout6.println(message);
-                System.out.println("Sending Message to: Ip: " + counter_no_6_ip + " & Port: " + counter_no_6_port);
-                System.out.println("Message: " + message);
-            }
-
-        } catch (IOException ex) {
-            System.out.println("Error: " + ex);
         }
+
+    }
+
+    private void send_message2(String message) {
+
     }
 
     private void print_config() {
