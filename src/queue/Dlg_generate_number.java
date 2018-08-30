@@ -52,6 +52,7 @@ import qs.queues.Queues;
 import qs.reports.Srpt_print_queue_no;
 import qs.util.Alert;
 import qs.util.DateType;
+import qs.util.Dlg_confirm_shutdown;
 import synsoftech.fields.Button;
 import synsoftech.fields.Field;
 import synsoftech.util.ImageRenderer;
@@ -604,9 +605,9 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,6 +622,11 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qs/img/link_logo (Custom).png"))); // NOI18N
         jLabel6.setOpaque(true);
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel6MousePressed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -640,25 +646,23 @@ public class Dlg_generate_number extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 945, Short.MAX_VALUE))
-                .addGap(37, 37, 37))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(168, 168, 168))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel7)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel8)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel7)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel8))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
 
@@ -722,6 +726,10 @@ public class Dlg_generate_number extends javax.swing.JDialog {
 //        ret_customer();
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
+
+    }//GEN-LAST:event_jLabel6MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -778,6 +786,37 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 jTextField1.grabFocus();
             }
         });
+
+        jLabel6.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 5) {
+                    shut_down();
+                }
+            }
+
+        });
+    }
+
+    private void shut_down() {
+        Window p = (Window) this;
+        Dlg_confirm_shutdown nd = Dlg_confirm_shutdown.create(p, true);
+        nd.setTitle("");
+        nd.setCallback(new Dlg_confirm_shutdown.Callback() {
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm_shutdown.OutputData data) {
+                try {
+                    closeDialog.ok();
+                    Runtime runtime = Runtime.getRuntime();
+                    Process proc = runtime.exec("shutdown -s -t 10");
+                    System.exit(0);
+                } catch (IOException ex) {
+                    Logger.getLogger(Dlg_generate_number.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        nd.setLocationRelativeTo(this);
+        nd.setVisible(true);
     }
     List<Counters.to_counters> counters = new ArrayList();
 
@@ -1010,9 +1049,9 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 String updated_by = "";
                 Queues.to_queues q = new Queues.to_queues(id, queue_no, department, department_id, customer, customer_id, counter_no, teller, teller_id, remarks, status, created_at, updated_at, created_by, updated_by);
                 Queues.add_data(q);
-                
+
                 send_message("hi teller");
-                
+
                 //<editor-fold defaultstate="collapsed" desc=" Print Queue No ">
                 String business_name = System.getProperty("business_name", "");
                 String address = System.getProperty("address", "");
@@ -1051,8 +1090,6 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 jLabel3.setText("");
                 jTextField1.grabFocus();
 
-                
-
             }
         });
         nd.setLocationRelativeTo(jScrollPane1);
@@ -1060,7 +1097,6 @@ public class Dlg_generate_number extends javax.swing.JDialog {
     }
 
     private void send_message(String message) {
-
         for (Counters.to_counters counter : counters) {
             if (!counter.ip_address.isEmpty()) {
                 try {
@@ -1069,14 +1105,12 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                     PrintWriter sout1 = new PrintWriter(s.getOutputStream(), true);
                     sout1.println(message);
                     System.out.println("Sending Message to: Ip: " + counter.ip_address + " & Port: " + queue_server_port);
-                    System.out.println("Message: " + message);
+//                    System.out.println("Message: " + message);
                 } catch (IOException e) {
                     System.out.println("Error! " + e);
                 }
             }
-
         }
-
     }
 
     private void send_message2(String message) {
@@ -1102,12 +1136,6 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         String counter_no_6_ip = System.getProperty("counter_no_6_ip", "");
         int counter_no_6_port = FitIn.toInt(System.getProperty("counter_no_6_port", ""));
 
-        System.out.println("counter_no_1_ip: " + counter_no_1_ip + " + counter_no_1_port: " + counter_no_1_port);
-        System.out.println("counter_no_2_ip: " + counter_no_2_ip + " + counter_no_2_port: " + counter_no_2_port);
-        System.out.println("counter_no_3_ip: " + counter_no_3_ip + " + counter_no_3_port: " + counter_no_3_port);
-        System.out.println("counter_no_4_ip: " + counter_no_4_ip + " + counter_no_4_port: " + counter_no_4_port);
-        System.out.println("counter_no_5_ip: " + counter_no_5_ip + " + counter_no_5_port: " + counter_no_5_port);
-        System.out.println("counter_no_6_ip: " + counter_no_6_ip + " + counter_no_6_port: " + counter_no_6_port);
     }
     JasperPrint jasperPrint = null;
 

@@ -57,8 +57,17 @@ public class MyMain {
                 }
             }
 
-            System.out.println(home);
+//            System.out.println(home);
             System.setProperty("pool_host", prop.getProperty("pool_host", "localhost"));
+            System.setProperty("pool_port", prop.getProperty("pool_port", "3306"));
+            System.setProperty("pool_user", prop.getProperty("pool_user", "root"));
+            System.setProperty("pool_password", prop.getProperty("pool_password", "synapse246"));
+            System.setProperty("pool_db", prop.getProperty("pool_db", "db_queue"));
+            System.setProperty("hdd_drive", prop.getProperty("hdd_drive", ""));
+            System.setProperty("environment", prop.getProperty("environment", "production"));
+
+            System.setProperty("VLC_PLUGIN_PATH", prop.getProperty("VLC_PLUGIN_PATH", ""));
+            System.setProperty("VLC_PLUGIN_NATIVE_PATH", prop.getProperty("VLC_PLUGIN_NATIVE_PATH", ""));
 
             System.out.println("Host: " + System.getProperty("pool_host"));
             List<Settings.to_settings> settings = Settings.ret_data("");
@@ -78,19 +87,12 @@ public class MyMain {
                 System.setProperty("queue_server_port", prop.getProperty("queue_server_port", setting.queue_server_port));
                 System.setProperty("location_screen_x", prop.getProperty("location_screen_x", setting.location_screen_x));
                 System.setProperty("location_screen_y", prop.getProperty("location_screen_y", setting.location_screen_y));
+
+                System.setProperty("screen_size_x", prop.getProperty("screen_size_x", "" + setting.screen_size_x));
+                System.setProperty("screen_size_y", prop.getProperty("screen_size_y", "" + setting.screen_size_y));
+                System.setProperty("play_video_sound", prop.getProperty("location_screen_y", "" + setting.play_video_sound));
             }
 
-            System.setProperty("pool_port", prop.getProperty("pool_port", "3306"));
-            System.setProperty("pool_user", prop.getProperty("pool_user", "root"));
-            System.setProperty("pool_password", prop.getProperty("pool_password", "synapse246"));
-            System.setProperty("pool_db", prop.getProperty("pool_db", "db_queue"));
-            System.setProperty("hdd_drive", prop.getProperty("hdd_drive", ""));
-            System.setProperty("environment", prop.getProperty("environment", "production"));
-
-            System.setProperty("VLC_PLUGIN_PATH", prop.getProperty("VLC_PLUGIN_PATH", ""));
-            System.setProperty("VLC_PLUGIN_NATIVE_PATH", prop.getProperty("VLC_PLUGIN_NATIVE_PATH", ""));
-
-          
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
