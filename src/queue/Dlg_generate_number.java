@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -775,7 +774,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         jLabel7.setText(System.getProperty("business_name", "Bayawan Water District"));
         jLabel8.setText(System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental"));
         init_key();
-        counters = Counters.ret_data("");
+
         ret_departments();
         setTextCenter();
         jPanel4.setVisible(false);
@@ -794,7 +793,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                     shut_down();
                 }
                 if (e.getClickCount() == 3) {
-                    counters = Counters.ret_data("");
+
                     ret_departments();
                     setTextCenter();
                 }
@@ -823,7 +822,6 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         nd.setLocationRelativeTo(this);
         nd.setVisible(true);
     }
-    List<Counters.to_counters> counters = new ArrayList();
 
     private void ret_departments() {
         JXLabel[] lbls = {jXLabel2, jXLabel3, jXLabel4, jXLabel1, jXLabel5, jXLabel6, jXLabel7, jXLabel8, jXLabel9};
@@ -1086,7 +1084,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                     }
                 }
                 //</editor-fold>
-                send_message("hi teller");
+                send_message("hi teller",department_id);
                 Alert.set(1, "");
                 tbl_degrees.clearSelection();
                 jTextField1.setText("");
@@ -1099,9 +1097,11 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         nd.setVisible(true);
     }
 
-    private void send_message(String message) {
+    private void send_message(String message,String department_id) {
+        List<Counters.to_counters> counters = Counters.ret_data(" where login=1 ");
         for (Counters.to_counters counter : counters) {
-            if (!counter.ip_address.isEmpty()) {
+           
+            if (!counter.ip_address.isEmpty() && counter.department_id.equalsIgnoreCase(department_id)) {
                 try {
                     int queue_server_port = FitIn.toInt(System.getProperty("queue_server_port", "2000"));
                     Socket s = new Socket(counter.ip_address, queue_server_port);
@@ -1110,6 +1110,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                     System.out.println("Sending Message to: Ip: " + counter.ip_address + " & Port: " + queue_server_port);
 //                    System.out.println("Message: " + message);
                 } catch (IOException e) {
+                    Counters.update_login_status(counter, 0);
                     System.out.println("Error! " + e);
                 }
             }
