@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import mijzcx.synapse.desk.utils.FitIn;
 import mijzcx.synapse.desk.utils.Lg;
 import mijzcx.synapse.desk.utils.ReceiptIncrementor;
 import mijzcx.synapse.desk.utils.SqlStringUtil;
@@ -301,7 +302,7 @@ public class Queues {
     }
 
     public static String increment_id(String department, String department_id, String f_letter) {
-        System.out.println("f_letter: " + f_letter);
+
         String id = f_letter + "0";
         String date = DateType.sf.format(new Date());
         try {
@@ -318,14 +319,24 @@ public class Queues {
                     id = rs2.getString(1);
                 }
             }
-            if (id == null) {
-                id = f_letter + "0";
-            }
-            id = ReceiptIncrementor.increment(id);
-            if (id.contains("101")) {
+            if (id == null || id.isEmpty()) {
                 id = f_letter + "0";
                 id = ReceiptIncrementor.increment(id);
+            } else {
+                String id2 = id;
+//                System.out.println("id: " + id);
+                id = id.substring(1, id.length());
+                int id1 = FitIn.toInt(id);
+
+                if (id1 >= 100) {
+                    id = f_letter + "0";
+                    id = ReceiptIncrementor.increment(id);
+                } else {
+                   
+                    id = ReceiptIncrementor.increment(id2);
+                }
             }
+
             return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);

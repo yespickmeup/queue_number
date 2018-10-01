@@ -45,13 +45,13 @@ public class Srpt_print_queue_no {
     }
 
     public static void main(String[] args) {
-        String business_name = System.getProperty("business_name", "XYZ Marketing");
-        String address = System.getProperty("address", "Daro, Dumaguete City");
+        String business_name = System.getProperty("business_name", "Bayawan Water District");
+        String address = System.getProperty("address", "Lot N, Block N. Don Gaspar Subdivision, Villareal, Bayawan City Negros Oriental");
         String contact_no = System.getProperty("contact_no", "");
         String counter_no = "01";
         String department = "Evaluation";
-        String queue_no = "00001";
-        String date = "30-JAN-2018 10:51 AM";
+        String queue_no = "A1";
+        String date = "September 25, 2018 10:51 AM";
         Srpt_print_queue_no rpt = new Srpt_print_queue_no(business_name, address, contact_no, counter_no, department, queue_no, date);
         String jrxml = "rpt_print_queue_no.jrxml";
         JRViewer viewer = get_viewer(rpt, jrxml);

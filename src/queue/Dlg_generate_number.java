@@ -44,6 +44,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import org.jdesktop.swingx.JXLabel;
+import qs.counter_departments.Counter_departments;
 import qs.counters.Counters;
 import qs.customers.Customers;
 import qs.departments.Departments;
@@ -1033,10 +1034,9 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                 List<Departments.to_departments> deps = Departments.ret_data(" where id='" + dep.id + "' ");
                 Departments.to_departments dep1 = (Departments.to_departments) deps.get(0);
                 String queue_no = Queues.increment_id(dep.department, "" + dep.id, dep1.shortcut);
-                List<Queues.to_queues> exist = Queues.ret_data(" where queue_no='" + queue_no + "' and department_id='" + dep.id + "' and Date(created_at)='" + date + "' ");
-                do {
-                    queue_no = Queues.increment_id(dep.department, "" + dep.id, dep.shortcut);
-                } while (!exist.isEmpty());
+//                System.out.println("queue_no: "+queue_no);
+//                List<Queues.to_queues> exist = Queues.ret_data(" where queue_no='" + queue_no + "' and department_id='" + dep.id + "' and Date(created_at)='" + date + "' ");
+
                 String department = dep.department;
                 String department_id = "" + dep.id;
                 String customer = jLabel3.getText();
@@ -1084,7 +1084,7 @@ public class Dlg_generate_number extends javax.swing.JDialog {
                     }
                 }
                 //</editor-fold>
-                send_message("hi teller",department_id);
+                send_message("hi teller", department_id);
                 Alert.set(1, "");
                 tbl_degrees.clearSelection();
                 jTextField1.setText("");
@@ -1097,11 +1097,17 @@ public class Dlg_generate_number extends javax.swing.JDialog {
         nd.setVisible(true);
     }
 
-    private void send_message(String message,String department_id) {
+    private void send_message(String message, String department_id) {
         List<Counters.to_counters> counters = Counters.ret_data(" where login=1 ");
         for (Counters.to_counters counter : counters) {
-           
-            if (!counter.ip_address.isEmpty() && counter.department_id.equalsIgnoreCase(department_id)) {
+            int count = 0;
+            if (counter.department_id.equalsIgnoreCase(department_id)) {
+                count++;
+            }
+            List<Counter_departments.to_counter_departments> counter_departments = Counter_departments.ret_data(" where counter_id='" + counter.id + "' ");
+            count = count + counter_departments.size();
+
+            if (!counter.ip_address.isEmpty() && count > 0) {
                 try {
                     int queue_server_port = FitIn.toInt(System.getProperty("queue_server_port", "2000"));
                     Socket s = new Socket(counter.ip_address, queue_server_port);
