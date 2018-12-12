@@ -328,7 +328,7 @@ public class Queues {
                 id = id.substring(1, id.length());
                 int id1 = FitIn.toInt(id);
 
-                if (id1 >= 100) {
+                if (id1 >= 500) {
                     id = f_letter + "0";
                     id = ReceiptIncrementor.increment(id);
                 } else {
